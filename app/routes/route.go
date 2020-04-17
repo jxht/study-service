@@ -1,6 +1,9 @@
 package routes
 
-import "github.com/kataras/iris/v12"
+import (
+	"github.com/kataras/iris/v12"
+	chineseController "study-service/app/controllers/chinese"
+)
 
 func RegisterRoutes(app *iris.Application) {
 	//默认页面
@@ -12,4 +15,6 @@ func RegisterRoutes(app *iris.Application) {
 		//m.ServeHTTP(ctx)
 		_, _ = ctx.WriteString("404 Not Found")
 	})
+
+	app.Get("pdf",chineseController.Abc)
 }
