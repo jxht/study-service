@@ -1,8 +1,12 @@
 package main
 
-import "github.com/kataras/iris/v12"
+import (
+	"github.com/kataras/iris/v12"
+	"study-service/app/routes"
+)
 
-func main()  {
+func main() {
 	app := iris.New()
-	app.Run(iris.Addr(":8080"))
+	routes.RegisterRoutes(app)
+	app.Run(iris.Addr(":8888"))
 }
