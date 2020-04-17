@@ -1,8 +1,9 @@
 package chineseController
 
 import (
-	"github.com/jung-kurt/gofpdf"
 	"github.com/kataras/iris/v12"
+	"github.com/signintech/gopdf"
+	"log"
 	"study-service/app/controllers"
 )
 var pdfController PdfController
@@ -12,9 +13,20 @@ type PdfController struct {
 }
 
 func Abc(ctr iris.Context)  {
-	pdf := gofpdf.New("P", "mm", "A4", "")
+	pdf := gopdf.GoPdf{}
+	pdf.Start(gopdf.Config{ PageSize: *gopdf.PageSizeA4 })
 	pdf.AddPage()
-	pdf.SetFont("Arial", "B", 16)
-	pdf.Cell(40, 10, "Hello, world")
-	_ = pdf.OutputFileAndClose("hello.pdf")
+	err := pdf.AddTTFFont("wts11", "./data/ttf/wts11.ttf")
+	if err != nil {
+		log.Print(err.Error())
+		return
+	}
+
+	err = pdf.SetFont("wts11", "", 14)
+	if err != nil {
+		log.Print(err.Error())
+		return
+	}
+	pdf.Cell(nil, "您好")
+	pdf.WritePdf("hello.pdf")
 }
