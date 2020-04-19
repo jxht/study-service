@@ -6,6 +6,7 @@ import (
 	"log"
 	"study-service/app/controllers"
 )
+
 var pdfController PdfController
 
 type PdfController struct {
@@ -22,11 +23,17 @@ func Abc(ctr iris.Context)  {
 		return
 	}
 
+	pdf.SetLineWidth(2)
+	pdf.SetLineType("dashed")
+	//pdf.SetLineType("dotted")
+	pdf.Line(10, 30, 585, 30)
+
 	err = pdf.SetFont("wts11", "", 14)
 	if err != nil {
 		log.Print(err.Error())
 		return
 	}
 	pdf.Cell(nil, "您好")
-	pdf.WritePdf("hello.pdf")
+	pdf.Br(20)
+	pdf.WritePdf("pdf/hello.pdf")
 }
