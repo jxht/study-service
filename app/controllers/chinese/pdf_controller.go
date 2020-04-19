@@ -7,15 +7,15 @@ import (
 	"study-service/app/controllers"
 )
 
-var pdfController PdfController
+//var pdfController PdfController
 
 type PdfController struct {
 	controllers.BaseController
 }
 
-func Abc(ctr iris.Context)  {
+func Abc(ctr iris.Context) {
 	pdf := gopdf.GoPdf{}
-	pdf.Start(gopdf.Config{ PageSize: *gopdf.PageSizeA4 })
+	pdf.Start(gopdf.Config{PageSize: *gopdf.PageSizeA4})
 	pdf.AddPage()
 	err := pdf.AddTTFFont("wts11", "./data/ttf/wts11.ttf")
 	if err != nil {
@@ -33,7 +33,7 @@ func Abc(ctr iris.Context)  {
 		log.Print(err.Error())
 		return
 	}
-	pdf.Cell(nil, "您好")
+	_ = pdf.Cell(nil, "您好")
 	pdf.Br(20)
-	pdf.WritePdf("pdf/hello.pdf")
+	_ = pdf.WritePdf("pdf/hello.pdf")
 }
